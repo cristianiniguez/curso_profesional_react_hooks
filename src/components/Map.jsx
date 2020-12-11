@@ -1,15 +1,15 @@
 import React from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-const Map = () => {
+const Map = ({ data }) => {
   const mapStyles = {
     height: '50vh',
     width: '100%',
   };
 
   const defaultCenter = {
-    lat: 19.42,
-    lng: -99.17,
+    lat: data?.lat || 0,
+    lng: data?.lng || 0,
   };
 
   return (
