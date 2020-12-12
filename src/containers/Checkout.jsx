@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import '../styles/components/Checkout.css';
 
@@ -21,30 +22,35 @@ const Checkout = () => {
   };
 
   return (
-    <main className="Checkout">
-      <div className="Checkout__content">
-        {cart.length > 0 ? <h3>Lista de Pedidos</h3> : 'Sin pedidos ...'}
-        {cart.map((item) => (
-          <div key={item.cartId} className="Checkout__item">
-            <div className="Checkout__element">
-              <h4>{item.title}</h4>
-              <span>{item.price}</span>
+    <>
+      <Helmet>
+        <title>PConf Merch - Lista de pedidos</title>
+      </Helmet>
+      <main className="Checkout">
+        <div className="Checkout__content">
+          {cart.length > 0 ? <h3>Lista de Pedidos</h3> : 'Sin pedidos ...'}
+          {cart.map((item) => (
+            <div key={item.cartId} className="Checkout__item">
+              <div className="Checkout__element">
+                <h4>{item.title}</h4>
+                <span>{item.price}</span>
+              </div>
+              <button type="button" onClick={() => handleRemove(item)}>
+                <i className="fas fa-trash-alt" />
+              </button>
             </div>
-            <button type="button" onClick={() => handleRemove(item)}>
-              <i className="fas fa-trash-alt" />
-            </button>
-          </div>
-        ))}
-      </div>
-      {cart.length > 0 && (
-        <div className="Checkout__sidebar">
-          <h3>{`Precio total: ${handleSumTotal()}`}</h3>
-          <Link to="/checkout/information">
-            <button type="button">Continuar pedido</button>
-          </Link>
+          ))}
         </div>
-      )}
-    </main>
+        {cart.length > 0 && (
+          <div className="Checkout__sidebar">
+            <h3>{`Precio total: ${handleSumTotal()}`}</h3>
+            <Link to="/checkout/information">
+              <button type="button">Continuar pedido</button>
+            </Link>
+          </div>
+        )}
+      </main>
+    </>
   );
 };
 
