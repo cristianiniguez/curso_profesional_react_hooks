@@ -1,8 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import initialState from '../initialState';
+
+const API = `${process.env.API_URL}/products`;
 
 const useInitialState = () => {
   const [state, setState] = useState({ ...initialState, cartCount: 0 });
+
+  useEffect(async () => {
+    const { data } = await axios(API);
+    setState({
+      ...state,
+      products: data,
+    });
+  }, []);
 
   const addToCart = (payload) => {
     const index = state.cartCount;

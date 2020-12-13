@@ -45,7 +45,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'assets/[name].css',
     }),
-    new EnvironmentPlugin(['PAYPAL_CLIENT_ID', 'GOOGLE_MAPS_API_KEY']),
+    new EnvironmentPlugin([
+      'PAYPAL_CLIENT_ID',
+      'GOOGLE_MAPS_API_KEY',
+      'API_URL',
+    ]),
     new CopyPlugin({
       patterns: [
         { from: 'public/manifest.json', to: '' },
