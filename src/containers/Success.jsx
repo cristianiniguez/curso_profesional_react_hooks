@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Map from '../components/Map';
 
@@ -9,8 +10,12 @@ import useGoogleAddress from '../hooks/useGoogleAddress';
 
 const Success = () => {
   const {
-    state: { buyer },
+    state: { buyer, orders },
   } = useContext(AppContext);
+
+  if (!buyer.length || !orders.length) {
+    return <Redirect to="/checkout" />;
+  }
 
   const location = useGoogleAddress(buyer[0].address);
 

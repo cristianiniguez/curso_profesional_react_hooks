@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button';
 
 import '../styles/components/Payment.css';
@@ -44,7 +44,9 @@ const Payment = () => {
     }
   };
 
-  return (
+  return !buyer.length ? (
+    <Redirect to="/checkout" />
+  ) : (
     <main className="Payment">
       <div className="Payment__content">
         <h3>Resumen del Pedido:</h3>
@@ -61,7 +63,6 @@ const Payment = () => {
             paypalOptions={paypalOptions}
             buttonStyles={buttonStyles}
             amount={handleSumTotal()}
-            onPaymentStart={() => console.log('start payment')}
             onPaymentSuccess={handlePaymentSuccess}
             onPaymentError={(error) => console.log({ error, message: 'error' })}
             onPaymentCancel={(data) =>

@@ -1,5 +1,5 @@
 import React, { useRef, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 
 import '../styles/components/Information.css';
 
@@ -31,7 +31,9 @@ const Information = () => {
     history.push('/checkout/payment');
   };
 
-  return (
+  return !cart.length ? (
+    <Redirect to="/checkout" />
+  ) : (
     <main className="Information">
       <div className="Information__content">
         <div className="Information__head">
